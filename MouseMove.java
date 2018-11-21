@@ -6,13 +6,13 @@ import java.util.Random;
 public class MouseMove {
     public static void main(String[] args) {
 	try {
-		CamReset(1145,1115);
+		MMClick(1175,1145);
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
     }	
-private static void CamReset(int XCord, int YCord) throws Exception{	
+private static void MMClick(int XCord, int YCord) throws Exception{	
 		
 	    Robot robot = new Robot();
         Random random = new Random();
@@ -25,34 +25,38 @@ private static void CamReset(int XCord, int YCord) throws Exception{
         int compassVarianceX = XCord+variance;
         int compassVarianceY = YCord+variance;
         if(compassVarianceX >= currentX && compassVarianceY >= currentY) {
-        while(compassVarianceX >= currentX && compassVarianceY >= currentY) {        	
+        while(compassVarianceX >= currentX || compassVarianceY >= currentY) {        	
         	Thread.sleep(random.nextInt(1)+1);
         	robot.mouseMove(currentX+random.nextInt(1), currentY+random.nextInt(1));
-        	currentX++;
+        	if(currentX <= compassVarianceX){
+        	    currentX++;}
         	if(currentY <= compassVarianceY){
         	    currentY++;}}
         }
         if(compassVarianceX <= currentX && compassVarianceY <= currentY) {
-        while(compassVarianceX <= currentX && compassVarianceY <= currentY) {
+        while(compassVarianceX <= currentX || compassVarianceY <= currentY) {
     		Thread.sleep(random.nextInt(1)+1);
         	robot.mouseMove(currentX+random.nextInt(1), currentY+random.nextInt(1));
-        	currentY--;
+        	if(currentY >= compassVarianceY){
+        	    currentY--;}
         	if(currentX >= compassVarianceX){
         	    currentX--;}
     	}}
         if(compassVarianceX >= currentX && compassVarianceY <= currentY) {
-            while(compassVarianceX >= currentX && compassVarianceY <= currentY) {        	
+            while(compassVarianceX >= currentX || compassVarianceY <= currentY) {        	
             	Thread.sleep(random.nextInt(1)+1);
             	robot.mouseMove(currentX+random.nextInt(1), currentY+random.nextInt(1));
-            	currentX++;
+            	if(currentX <= compassVarianceX){
+            	    currentX++;}
             	if(currentY >= compassVarianceY){
             	    currentY--;}}
             }
         if(compassVarianceX <= currentX && compassVarianceY >= currentY) {
-            while(compassVarianceX <= currentX && compassVarianceY >= currentY) {        	
+            while(compassVarianceX <= currentX || compassVarianceY >= currentY) {        	
             	Thread.sleep(random.nextInt(1)+1);
             	robot.mouseMove(currentX+random.nextInt(1), currentY+random.nextInt(1));
-            	currentX--;
+            	if(currentX >= compassVarianceX){
+            	    currentX--;}
             	if(currentY <= compassVarianceY){
             	    currentY++;}}
             }
