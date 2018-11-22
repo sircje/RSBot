@@ -19,24 +19,8 @@ import java.awt.event.InputEvent;
 public class rsBot{
 	
 	public static void main(String[] args) throws Exception{
-		Random random = new Random();
-		int loops = 2;
-		MapReset();
-		try {
-			screenCapture();
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
-		 //Checks to see you are in the proper place:
-		 double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\test.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\EastFaladorBank.png");
-		 double threshold = 10.0;
-		 if(threshold > difference) {
-		while(loops >0) {		
-        AirRune();
-        loops--;
-		}}
-		 if(difference > threshold) {
-		  		LogOut();}
+		CursorScan();
+		
  }
 private static void MapReset() throws Exception {
 	Random random = new Random();
@@ -47,11 +31,68 @@ private static void MapReset() throws Exception {
 	//Compass clicked, map reset^
 	
 }
+private static void CursorScan() throws Exception {
+	Thread.sleep(1000);
+	Robot robot = new Robot();
+    robot.mouseMove(0, 0);
+    int currentX = MouseInfo.getPointerInfo().getLocation().x;
+    int currentY = MouseInfo.getPointerInfo().getLocation().y;
+    CornerText();
+    double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png");
+    while(1000> currentY) {
+    	currentY = currentY +50;
+	 while(1911 > currentX) {
+     	Thread.sleep(1);
+     	robot.mouseMove(currentX, currentY);	
+     	currentX = currentX+25;
+     	CornerText();
+        difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png");
+        if (difference < 10) {
+        	break;
+        }
+     	} currentY = currentY +50;
+     	while(10 < currentX) {
+     		Thread.sleep(1);
+	     	robot.mouseMove(currentX, currentY);	
+	     	currentX = currentX-25;
+     	}}
+	 
+
+
+}
+private static void CornerText() throws Exception {
+	{
+        Rectangle rectangle = new Rectangle(1,26,136,15);
+        Robot robot = new Robot();
+        BufferedImage screen = robot.createScreenCapture(rectangle);
+        try {
+            ImageIO.write(screen, "png", new File("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png"));
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }}
+}
 private static void AirRune() throws Exception {
+	/*For main
+	int loops = 2;
+	MapReset();		
+	while(loops >0) {		
+    AirRune();
+    loops--;
+	}
+	*/
 
 	Random random = new Random();
+	try {
+		screenCapture();
+	} catch (AWTException e) {
+		e.printStackTrace();
+	}
+	 //Checks to see you are in the proper place:
+	 double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\test.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\EastFaladorBank.png");
+	 double threshold = 10.0;
+	 if(threshold > difference) {
 	
-	 int error = random.nextInt(15);
 	    Thread.sleep(150+random.nextInt(150));
 		MMove(678,258);
 		Thread.sleep(50+random.nextInt(50));
@@ -82,23 +123,23 @@ private static void AirRune() throws Exception {
 	  	LeftClick();
 	  //	Walking to the Altar^^^   
 	  	Thread.sleep(7500+random.nextInt(5500));
-	  	MMove(1752+error, 759+error);
+	  	MMove(1752, 759);
 	  	LeftClick();
 	  	Thread.sleep(1500+random.nextInt(5500));
-	  	MMove(1522+error, 386+error);
+	  	MMove(1522, 386);
 	  	LeftClick();
 	  	Thread.sleep(1500+random.nextInt(5500));
-	  	MMove(1644+error, 55+error);
+	  	MMove(1644, 55);
 	  	LeftClick();
 	  	//Runes crafted
 	  	Thread.sleep(4500+random.nextInt(5500));
-	  	MMove(682+error, 1001+error);
+	  	MMove(682, 1001);
 	  	LeftClick();
 	  	Thread.sleep(2500+random.nextInt(5500));
-	  	MMove(615+error, 1008+error);
+	  	MMove(615, 1008);
 	  	LeftClick();
 	  	Thread.sleep(3500+random.nextInt(5500));
-	  	MMove(918+error, 1018+error);
+	  	MMove(918, 1018);
 	  	LeftClick();
 	  	//Altar exited
 	  	Thread.sleep(5500+random.nextInt(5500));
@@ -129,7 +170,8 @@ private static void AirRune() throws Exception {
 	  	MMove(1781, 857);
 	  	LeftClick();
 	  	//end of air rune run
-	  	
+	 }if(difference > threshold) {
+	  		LogOut();}
 	  	
 	
 }
