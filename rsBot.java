@@ -20,7 +20,7 @@ public class rsBot{
 	
 	public static void main(String[] args) throws Exception{
 		Random random = new Random();
-		Thread.sleep(500);
+		Thread.sleep(1500);
 		try {
 			MMove(1750, 38);
 		} catch (Exception e) {
@@ -34,10 +34,10 @@ public class rsBot{
 	e.printStackTrace();
 }
  //Checks to see you are in the proper place:
- double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\test.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\FaladorBankFull.png");
- double threshold = 5.0;
+ double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\test.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\EastFaladorBank.png");
+ double threshold = 10.0;
  if(threshold > difference){
-      MMove(975, 533);	
+      MMove(912, 710);	
      
     LeftClick();
     //Opens the bank
@@ -45,11 +45,81 @@ public class rsBot{
 	MMove(678,258);
 	Thread.sleep(50+random.nextInt(50));
 	RightClick();
+	Thread.sleep(50+random.nextInt(50));
 	//Selects essence
 	MMove(641, 344);
 	LeftClick();
 	//Withdraws max essence
 	Thread.sleep(150+random.nextInt(150));
+	// Walking to the Altar vvv
+  	MMove(1820, 170);
+  	LeftClick();
+  	Thread.sleep(17500+random.nextInt(5500));
+  	MMove(1838, 179);
+  	LeftClick();
+  	Thread.sleep(15500+random.nextInt(5500));
+  	MMove(1838, 179);
+  	LeftClick();
+  	Thread.sleep(15500+random.nextInt(5500));
+  	MMove(1789, 150);
+  	LeftClick();
+  	Thread.sleep(15500+random.nextInt(5500));
+  	MMove(1770, 115);
+  	LeftClick();
+  	Thread.sleep(15500+random.nextInt(5500));
+  	MMove(1855, 107);
+  	LeftClick();
+  //	Walking to the Altar^^^   
+  	Thread.sleep(7500+random.nextInt(5500));
+  	MMove(1752, 759);
+  	LeftClick();
+  	Thread.sleep(1500+random.nextInt(5500));
+  	MMove(1522, 386);
+  	LeftClick();
+  	Thread.sleep(1500+random.nextInt(5500));
+  	MMove(1644, 55);
+  	LeftClick();
+  	//Runes crafted
+  	Thread.sleep(4500+random.nextInt(5500));
+  	MMove(682, 1001);
+  	LeftClick();
+  	Thread.sleep(2500+random.nextInt(5500));
+  	MMove(615, 1008);
+  	LeftClick();
+  	Thread.sleep(3500+random.nextInt(5500));
+  	MMove(918, 1018);
+  	LeftClick();
+  	//Altar exited
+  	Thread.sleep(5500+random.nextInt(5500));
+  	MMove(1908, 106);
+  	LeftClick();
+  	Thread.sleep(13500+random.nextInt(5500));
+  	MMove(1845, 39);
+  	LeftClick();
+  	Thread.sleep(13500+random.nextInt(5500));
+  	MMove(1854, 42);
+  	LeftClick();
+  	Thread.sleep(13500+random.nextInt(5500));
+  	MMove(1839, 38);
+  	LeftClick();
+  	Thread.sleep(17500+random.nextInt(5500));
+  	MMove(1854, 37);
+  	LeftClick();
+  	Thread.sleep(13500+random.nextInt(5500));
+  	MMove(901, 955);
+  	LeftClick();
+  	Thread.sleep(1500+random.nextInt(5500));
+  	MMove(901, 955);
+  	LeftClick();
+  	Thread.sleep(2500+random.nextInt(5500));
+  	MMove(1802, 764);
+  	RightClick();
+  	Thread.sleep(500+random.nextInt(5500));
+  	MMove(1781, 857);
+  	LeftClick();
+  	//end of air rune run
+  	
+  	
  }
 	 
  }
@@ -73,7 +143,7 @@ private static void MMove(int XCord, int YCord) throws Exception{
 		
 	    Robot robot = new Robot();
         Random random = new Random();
-        int variance = random.nextInt(5);
+        int variance = random.nextInt(1);
         //Move the mouse to and click the compass, resetting the camera
         
         int currentX = MouseInfo.getPointerInfo().getLocation().x;
