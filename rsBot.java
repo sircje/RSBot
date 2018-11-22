@@ -19,7 +19,12 @@ import java.awt.event.InputEvent;
 public class rsBot{
 	
 	public static void main(String[] args) throws Exception{
-		CursorScan();
+		Thread.sleep(2000);
+//		CornerText();
+//		imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\ExitPortal.png");
+//		imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\UsePortal.png");
+		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png", 11, 10, 50);
+		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\ExitPortal.png", 13, 5, 30);
 		
  }
 private static void MapReset() throws Exception {
@@ -31,31 +36,60 @@ private static void MapReset() throws Exception {
 	//Compass clicked, map reset^
 	
 }
-private static void CursorScan() throws Exception {
-	Thread.sleep(1000);
+private static void CursorScan(String file, int accuracy, int speedX, int speedY) throws Exception {
+	//TO DO make the comparison before the mouse moves, maybe sleep?
 	Robot robot = new Robot();
     robot.mouseMove(0, 0);
     int currentX = MouseInfo.getPointerInfo().getLocation().x;
     int currentY = MouseInfo.getPointerInfo().getLocation().y;
     CornerText();
-    double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png");
+    double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
     while(1000> currentY) {
-    	currentY = currentY +50;
+    	currentY = currentY +speedY;
 	 while(1911 > currentX) {
-     	Thread.sleep(1);
-     	robot.mouseMove(currentX, currentY);	
-     	currentX = currentX+25;
-     	CornerText();
-        difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png");
-        if (difference < 10) {
+     	while(true){try {
+			CornerText();
+			break;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("number 1");
+		}}
+        difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
+        if (difference < accuracy) {
+        	LeftClick();
+        	System.out.println("click");
         	break;
         }
-     	} currentY = currentY +50;
+     	robot.mouseMove(currentX, currentY);	
+     	currentX = currentX+speedX;    
+	 
+	 }if (difference < accuracy) {
+        	break;
+        }
+        currentY = currentY +speedY;
      	while(10 < currentX) {
-     		Thread.sleep(1);
-	     	robot.mouseMove(currentX, currentY);	
-	     	currentX = currentX-25;
-     	}}
+
+	     	while(true){try {
+				CornerText();
+				break;
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("number 2");
+			}}
+	        difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
+	        if (difference < accuracy) {
+	        	LeftClick();
+	        	System.out.println("click");
+	        	break;
+	        }
+	        
+	        robot.mouseMove(currentX, currentY);	
+	     	currentX = currentX-speedX;  
+     	}if (difference < accuracy) {
+        	break;
+        }}
+//    LeftClick();
+    Thread.sleep(200);
 	 
 
 
