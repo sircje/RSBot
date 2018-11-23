@@ -3,6 +3,8 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import com.sun.glass.events.KeyEvent;
+
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -19,31 +21,46 @@ import java.awt.event.InputEvent;
 public class rsBot{
 	
 	public static void main(String[] args) throws Exception{
-		Thread.sleep(2000);
-//		CornerText();
-//		imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\ExitPortal.png");
-//		imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\UsePortal.png");
-		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png", 11, 10, 50);
-		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\ExitPortal.png", 13, 5, 30);
+		Random random = new Random();
+		Thread.sleep(3000);
+		CornerText();
+/*		MapReset();
+		MMove(1350+random.nextInt(20), 544+random.nextInt(20));
+		LeftClick();
+		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png", 12, 10, 50);
+		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\UsePortal.png", 12, 5, 30);		
+		Thread.sleep(7000+random.nextInt(3500));
+		MapReset();
+		MMove(953+random.nextInt(20), 375+random.nextInt(20));
+		Thread.sleep(100+random.nextInt(100));
+		LeftClick();
+		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\BankBankBooth.png", 12, 10, 50);
+*/		
+		
 		
  }
 private static void MapReset() throws Exception {
+	Robot robot = new Robot();
 	Random random = new Random();
 	Thread.sleep(1500+random.nextInt(500));
 		MMove(1757, 48);
 		LeftClick();
+		robot.keyPress(KeyEvent.VK_UP);
+		Thread.sleep(2000+random.nextInt(1000));
+		robot.keyRelease(KeyEvent.VK_UP);
 	
 	//Compass clicked, map reset^
 	
 }
 private static void CursorScan(String file, int accuracy, int speedX, int speedY) throws Exception {
-	//TO DO make the comparison before the mouse moves, maybe sleep?
+	int startingX = 0;
+	int startingY = 0;
 	Robot robot = new Robot();
-    robot.mouseMove(0, 0);
+    robot.mouseMove(startingX, startingY);
     int currentX = MouseInfo.getPointerInfo().getLocation().x;
     int currentY = MouseInfo.getPointerInfo().getLocation().y;
     CornerText();
-    double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
+    double difference = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
     while(1000> currentY) {
     	currentY = currentY +speedY;
 	 while(1911 > currentX) {
@@ -54,7 +71,7 @@ private static void CursorScan(String file, int accuracy, int speedX, int speedY
 			e.printStackTrace();
 			System.out.println("number 1");
 		}}
-        difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
+        difference = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
         if (difference < accuracy) {
         	LeftClick();
         	System.out.println("click");
@@ -76,7 +93,7 @@ private static void CursorScan(String file, int accuracy, int speedX, int speedY
 				e.printStackTrace();
 				System.out.println("number 2");
 			}}
-	        difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
+	        difference = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png",file);
 	        if (difference < accuracy) {
 	        	LeftClick();
 	        	System.out.println("click");
@@ -96,7 +113,7 @@ private static void CursorScan(String file, int accuracy, int speedX, int speedY
 }
 private static void CornerText() throws Exception {
 	{
-        Rectangle rectangle = new Rectangle(1,26,136,15);
+        Rectangle rectangle = new Rectangle(1,25,200,15);
         Robot robot = new Robot();
         BufferedImage screen = robot.createScreenCapture(rectangle);
         try {
@@ -118,12 +135,12 @@ private static void AirRune() throws Exception {
 
 	Random random = new Random();
 	try {
-		screenCapture();
+		ScreenCapture();
 	} catch (AWTException e) {
 		e.printStackTrace();
 	}
 	 //Checks to see you are in the proper place:
-	 double difference = imageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\test.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\EastFaladorBank.png");
+	 double difference = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\test.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\EastFaladorBank.png");
 	 double threshold = 10.0;
 	 if(threshold > difference) {
 	
@@ -290,7 +307,7 @@ private static void MMove(int XCord, int YCord) throws Exception{
         System.out.println(currentX + "," + currentY);
 		
 }
-	private static void screenCapture() throws AWTException {
+	private static void ScreenCapture() throws AWTException {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         Rectangle rectangle = new Rectangle(dimension);
         Robot robot = new Robot();
@@ -301,7 +318,7 @@ private static void MMove(int XCord, int YCord) throws Exception{
 
             e.printStackTrace();
         }}
-	private static double imageCompare(String file1, String file2){ 
+	private static double ImageCompare(String file1, String file2){ 
         BufferedImage imgA = null; 
         BufferedImage imgB = null; 
   
