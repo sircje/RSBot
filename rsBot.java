@@ -23,22 +23,87 @@ public class rsBot{
 	public static void main(String[] args) throws Exception{
 		Random random = new Random();
 		Thread.sleep(3000);
+		int threshold = 7;
 		CornerText();
+		ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\WalkHere.png");
 /*		MapReset();
 		MMove(1350+random.nextInt(20), 544+random.nextInt(20));
 		LeftClick();
-		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png", 12, 10, 50);
-		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\UsePortal.png", 12, 5, 30);		
+		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\MineRuneEssence.png", 10, 10, 50);
+		CursorScanEssencePortal(11, 5, 30);
+		//"exit" and "use" options appear randomly, to implement fix to check for both beyond a full scan for each	
 		Thread.sleep(7000+random.nextInt(3500));
 		MapReset();
 		MMove(953+random.nextInt(20), 375+random.nextInt(20));
 		Thread.sleep(100+random.nextInt(100));
 		LeftClick();
-		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\BankBankBooth.png", 12, 10, 50);
+		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\BankBankBooth.png", 11, 15, 30);
 */		
 		
 		
  }
+	private static void CursorScanEssencePortal(int accuracy, int speedX, int speedY) throws Exception {
+		int startingX = 0;
+		int startingY = 0;
+		Robot robot = new Robot();
+	    robot.mouseMove(startingX, startingY);
+	    int currentX = MouseInfo.getPointerInfo().getLocation().x;
+	    int currentY = MouseInfo.getPointerInfo().getLocation().y;
+	    CornerText();
+	    double difference = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\UsePortal.png");
+	    double difference2 = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\ExitPortal.png");
+	    while(1000> currentY) {
+	    	currentY = currentY +speedY;
+		 while(1911 > currentX) {
+	     	while(true){try {
+				CornerText();
+				break;
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("number 1");
+			}}
+	        difference = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\UsePortal.png");
+	        difference2 = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\ExitPortal.png");
+	        if (difference < accuracy || difference2 < accuracy) {
+	        	LeftClick();
+	        	System.out.println("click");
+	        	break;
+	        }
+	     	robot.mouseMove(currentX, currentY);	
+	     	currentX = currentX+speedX;    
+		 
+		 }if (difference < accuracy || difference2 < accuracy) {
+	        	break;
+	        }
+	        currentY = currentY +speedY;
+	     	while(10 < currentX) {
+
+		     	while(true){try {
+					CornerText();
+					break;
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("number 2");
+				}}
+		        difference = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\UsePortal.png");
+		        difference2 = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\ExitPortal.png");
+		        if (difference < accuracy || difference2 < accuracy) {
+		        	LeftClick();
+		        	System.out.println("click");
+		        	break;
+		        }
+		        
+		        robot.mouseMove(currentX, currentY);	
+		     	currentX = currentX-speedX;  
+	     	}if (difference < accuracy || difference2 < accuracy) {
+	        	break;
+	        }}
+//	    LeftClick();
+	    Thread.sleep(200);
+		 
+
+
+	}
 private static void MapReset() throws Exception {
 	Robot robot = new Robot();
 	Random random = new Random();
