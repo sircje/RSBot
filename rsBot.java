@@ -23,9 +23,10 @@ public class rsBot{
 	public static void main(String[] args) throws Exception{
 		Random random = new Random();
 		Thread.sleep(3000);	
-        FullEssenceCheck();
-/*
-		MapReset();
+        
+
+// FullEssenceCheck(5);
+/*		MapReset();
 		MMove(1350+random.nextInt(20), 544+random.nextInt(20));
 		LeftClick();
 		BlackBackground();				
@@ -38,13 +39,30 @@ public class rsBot{
 		Thread.sleep(100+random.nextInt(100));
 		LeftClick();
 		Thread.sleep(5100+random.nextInt(1100));
-		BlackBackground();	
-		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\BankBankBooth.png",300, 9, 12, 20);
-	*/	
+	*///	BlackBackground();	
+		MMove(973+random.nextInt(20), 305+random.nextInt(20));
+		LeftClick();
+		CursorScan("C:\\Users\\Connor\\Desktop\\ImageFinder\\BankBankBooth.png",200, 11, 7, 20);
+	
 		
 		
  }
-	private static void FullEssenceCheck() throws Exception {
+	private static void RandomRadar() {
+		
+	}
+private static void TalkToFinder()throws Exception {
+	{
+        Rectangle rectangle = new Rectangle(1,25,55,15); 
+        Robot robot = new Robot();
+        BufferedImage screen = robot.createScreenCapture(rectangle);
+        try {
+            ImageIO.write(screen, "png", new File("C:\\Users\\Connor\\Desktop\\ImageFinder\\TalkToFinder.png"));
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }}
+} 
+private static void FullEssenceCheck(int count) throws Exception {
 		while(true) {
 			InventoryScan();
 			boolean FullEssenceCheck = false;
@@ -58,9 +76,10 @@ public class rsBot{
         	System.out.println("Checked, not full");
         	boolean FullCheck = FullEssenceCheck;
         	if(FullCheck == true) {
-        		System.out.println("Checked, full");
         		break;
-        	}
+        	}if(count == 0) {
+        		break;
+        	} count--;
         }
 	}
 private static void InventoryScan() throws Exception {
@@ -75,7 +94,7 @@ private static void InventoryScan() throws Exception {
             e.printStackTrace();
         }}
 }
-	private static void BlackBackground() throws Exception {
+private static void BlackBackground() throws Exception {
 		Random random = new Random();
 		CornerText();
 		double WalkHere = ImageCompare("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png","C:\\Users\\Connor\\Desktop\\ImageFinder\\WalkHere.png");		
@@ -89,7 +108,7 @@ private static void InventoryScan() throws Exception {
 		}
 		
 	}
-	private static void CursorScanEssencePortal() throws Exception {
+private static void CursorScanEssencePortal() throws Exception {
 		int accuracy = 11;
 		int speedX = 5;
 		int speedY = 30;
@@ -183,7 +202,6 @@ private static void CursorScan(String file,int startingY, int accuracy, int spee
     int count = 2;
 	while (true) {
 	int startingX = 0;
-	startingY = 0;
 	Robot robot = new Robot();
 	Random random = new Random();
     MMove(startingX, startingY);
@@ -191,9 +209,9 @@ private static void CursorScan(String file,int startingY, int accuracy, int spee
     int currentY = MouseInfo.getPointerInfo().getLocation().y;
     CornerText();
 
-    while(1000> currentY) {
+    while(800> currentY) {
     	currentY = currentY +speedY;
-	 while(1911 > currentX) {
+	 while(1511 > currentX) {
      	while(true){try {
 			CornerText();
 			break;
@@ -214,7 +232,7 @@ private static void CursorScan(String file,int startingY, int accuracy, int spee
         	break;
         }
         currentY = currentY +speedY;
-     	while(10 < currentX) {
+     	while(350 < currentX) {
 
 	     	while(true){try {
 				CornerText();
@@ -250,15 +268,16 @@ private static void CursorScan(String file,int startingY, int accuracy, int spee
 }
 private static void CornerText() throws Exception {
 	{
-        Rectangle rectangle = new Rectangle(1,25,75,15);
+        Rectangle rectangle = new Rectangle(1,25,75,15); //75 for 3rd int
         Robot robot = new Robot();
         BufferedImage screen = robot.createScreenCapture(rectangle);
-        try {
+        while(true){try {
             ImageIO.write(screen, "png", new File("C:\\Users\\Connor\\Desktop\\ImageFinder\\CornerText.png"));
+            break;
         } catch (IOException e) {
 
             e.printStackTrace();
-        }}
+        }}}
 }
 private static void AirRune() throws Exception {
 	/*For main
@@ -444,7 +463,7 @@ private static void MMove(int XCord, int YCord) throws Exception{
         System.out.println(currentX + "," + currentY);
 		
 }
-	private static void ScreenCapture() throws AWTException {
+private static void ScreenCapture() throws AWTException {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         Rectangle rectangle = new Rectangle(dimension);
         Robot robot = new Robot();
@@ -455,7 +474,7 @@ private static void MMove(int XCord, int YCord) throws Exception{
 
             e.printStackTrace();
         }}
-	private static double ImageCompare(String file1, String file2){ 
+private static double ImageCompare(String file1, String file2){ 
         BufferedImage imgA = null; 
         BufferedImage imgB = null; 
   
